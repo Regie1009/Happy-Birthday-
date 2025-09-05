@@ -34,17 +34,29 @@ Website ini menghadirkan pengalaman yang fun, manis, dan personal dengan berbaga
 
 ## 📂 Struktur Folder
 project/
+
 │
+
 ├── public/ # File statis (HTML, CSS, JS, assets)
+
 │ ├── index.html
+
 │ ├── styles.css
+
 │ ├── script.js
+
 │ └── assets/ # Foto, musik, video
+
 │
+
 ├── messages/ # Folder penyimpanan pesan txt
+
 ├── dream/ # Folder penyimpanan wishlist txt
+
 ├── server.js # Server Node.js (Express)
+
 ├── package.json
+
 └── README.md
 
 ## 🚀 Cara Menjalankan
