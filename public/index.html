@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>🎉 Kejutan Ultah Buat Kamu 🎂</title>
+  <link rel="stylesheet" href="styles.css">
+  <!-- Font Awesome buat ikon -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+  <div class="bg-grid" id="bgGrid"></div>
+  
+  <!--
+  <div class="bg-slideshow">
+    <img src="assets/images/slide/8.jpg" class="active">
+    <img src="assets/images/slide/2.jpg">
+    <img src="assets/images/slide/16.png">
+    <img src="assets/images/slide/1.jpg">
+  </div>
+-->
+
+  <div id="videoModal" class="video-modal">
+    <div class="video-modal-content">
+      <span id="closeVideo" class="video-close">&times;</span>
+      <video id="memoryVideo" controls>
+        <source src="assets/videos/sayangRegita.mp4" type="video/mp4">
+        Browser kamu tidak mendukung video tag.
+      </video>
+    </div>
+  </div>
+
+  <canvas id="fx"></canvas>
+  <div class="hearts" id="hearts"></div>
+  <div class="balloons" id="balloons"></div>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <span class="badge">🎂 <span id="badgeText">Selamat Ulang Tahun</span></span>
+      <h1 class="title" id="title">Happy Birthday <br><b id="name"></b> ✨</h1>
+      <p class="subtitle" id="subtitle">May your day be as bright as your smile 🌟</p>
+      <div id="countdownBox">Loading countdown…</div>
+      <div class="cta">
+        <button class="btn primary" id="openBtn"><i class="fa-solid fa-gift"></i> Buka Kejutan</button>
+        <button class="btn ghost" id="musicBtn"><i class="fa-solid fa-music"></i> Play Music</button>
+        <button id="btnVideo" class="btn ghost">📹  Play Video</button>
+        <!-- tombol countdown udah dihapus -->
+        <button class="btn ghost" id="loginIg"><i class="fa-brands fa-instagram"></i> Instagram</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container grid">
+      <div class="card reveal" id="revealCard">
+        <div class="seal">💌</div>
+        <h3>Surat Kecil Buat Kamu</h3>
+        <p class="muted">Ketuk tombol “Buka Kejutan” untuk buka pesan ini.</p>
+        <div class="content censored" id="loveNote"></div>
+      </div>
+
+      <div class="card gallery">
+        <div class="viewport">
+          <img id="galleryImg" alt="Kenangan kita" />
+        </div>
+        <div class="controls">
+          <button id="prev">⟨⟨</button>
+          <div class="muted" id="caption" style="align-self:center"></div>
+          <button id="next">⟩⟩</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Tinggalkan Impianmu di sini</h3>
+        <ul id="wishlist"></ul>
+        <div class="input-row">
+          <input id="wishInput" placeholder="Tulis impianmu…"/>
+          <button class="btn" id="addWish">Tambah</button>
+          <button class="btn ghost" id="clearWish">Bersihkan</button>
+        </div>
+        <div class="muted" style="margin-top:8px">Tips: item tersimpan otomatis di perangkat (localStorage).</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container grid">
+
+      <!-- IG Card -->
+      <div class="card ig" id="igCard" style="display:none">
+        <!-- Header profil IG -->
+        <div class="ig-header">
+          <img src="assets/images/profil.jpeg" alt="profile" class="ig-avatar">
+          <div class="ig-info">
+            <div class="ig-username">@ur_regiee</div>
+            <div class="ig-stats">
+              <span><b>3</b> posts</span>
+              <span><b>831</b> followers</span>
+              <span><b>337</b> following</span>
+            </div>
+            <div class="ig-bio">
+              Regita<br>
+              <small>In a world of worries, be the warrior</small>
+            </div>
+          </div>
+        </div>
+
+        <!-- Highlights -->
+        <div class="ig-highlights">
+          <div class="ig-highlight"><img src="assets/images/story1.png" alt="story"></div>
+          <div class="ig-highlight"><img src="assets/images/story2.png" alt="story"></div>
+        </div>
+
+        <!-- Grid postingan -->
+        <div class="ig-grid" id="igGrid"></div>
+
+        <!-- info login (supaya JS lama gak error) -->
+        <div id="igInfo" style="display:none"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="card message-box">
+        <h3>📩 Kirim Pesan buat Bubub Tersayang ❤️</h3>
+        <textarea id="userMessage" placeholder="Tulis pesanmu di sini..." rows="4"></textarea>
+        <button onclick="sendMessage()">Kirim</button>
+        <div id="displayMessage" class="message-content" style="display:none;"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Modal Konfirmasi -->
+  <div id="confirmModal" class="modal hidden">
+    <div class="modal-content">
+      <p>Kamu yakin ingin mengirim pesan ini?</p>
+      <button id="reviseBtn">Revisi dulu</button>
+      <button id="sendBtn">Kirim pesan</button>
+    </div>
+  </div>
+
+  <!-- Modal Terima Kasih -->
+    <div id="thankyouModal" class="modal hidden">
+      <div class="modal-content">
+        <p>Terima kasih, pesan anda sudah terkirim 🎉</p>
+        <button id="closeThanks">Tutup</button>
+      </div>
+    </div>
+
+  <!-- Modal konfirmasi impian -->
+  <div id="dreamModal" class="modal" style="display:none;">
+    <div class="modal-content">
+      <p>Kamu yakin ingin mengirim impian ini?</p>
+      <button id="dreamReviseBtn">Revisi dulu</button>
+      <button id="dreamConfirmBtn">Kirim</button>
+    </div>
+  </div>
+
+  <!-- Modal sukses -->
+  <div id="dreamSuccessModal" class="modal" style="display:none;">
+    <div class="modal-content">
+      <p>🎉 Terima kasih, impianmu sudah tersimpan!</p>
+      <button id="dreamCloseSuccessBtn">OK</button>
+    </div>
+  </div>
+
+  <footer>
+    <div class="tiny">Dibuat khusus dengan ❤️ oleh <span id="fromName">Aku</span> — <span class="hide-sm">klik di mana saja untuk kembang api ✨</span></div>
+  </footer>
+
+  <audio id="bgm" src="assets/music/song.mp3" preload="auto"></audio>
+
+  <script src="script.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,389 @@
+:root{
+  --bg: #0f0f13;
+  --panel: #15151c;
+  --soft: #1c1c25;
+  --text: #f5f7fb;
+  --muted: #b6b9c6;
+  --primary:#ff5fa2;   /* pink */
+  --accent: #7cf5ff;   /* cyan */
+  --gold:   #ffd166;   /* gold */
+  --success:#7dffaf;   /* mint */
+  --balloon1:#ff5fa2;
+  --balloon2:#7cf5ff;
+  --balloon3:#ffd166;
+  --balloon4:#7dffaf;
+  --shadow: 0 10px 30px rgba(0,0,0,.35);
+  --radius: 18px;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  background:
+    radial-gradient(1200px 800px at 75% -10%, rgba(255,95,162,.15), transparent 50%),
+    radial-gradient(1000px 700px at 10% -10%, rgba(124,245,255,.12), transparent 50%),
+    linear-gradient(180deg, #0b0b10, var(--bg));
+  color:var(--text);
+  font: 500 16px/1.6 ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  overflow-x:hidden;
+}
+a{color:var(--accent)}
+
+/* ====== Header / Hero ====== */
+.hero{
+  position:relative;
+  min-height:100vh;
+  display:grid;
+  place-items:center;
+  padding:80px 20px 40px;
+  text-align:center;
+  isolation:isolate;
+}
+.hero-inner{ max-width:950px; width:100%; position:relative; }
+.badge{
+  display:inline-flex; gap:8px; align-items:center; padding:8px 12px; background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.08); border-radius:999px; color:var(--muted); backdrop-filter: blur(6px);
+}
+.title{ font-size: clamp(36px, 6vw, 64px); line-height:1.05; margin:18px 0 12px; letter-spacing:.3px; }
+.title b{ color:var(--primary); text-shadow:0 6px 24px rgba(255,95,162,.35)}
+.subtitle{ color:var(--muted); font-weight:500; margin-bottom:10px }
+#countdownBox{ font-variant-numeric: tabular-nums; font-weight:800; letter-spacing:.5px; margin-bottom:28px }
+
+.cta{ display:flex; justify-content:center; gap:14px; flex-wrap:wrap; margin-top:6px }
+.btn{
+  --h:50px; height:var(--h); padding:0 18px; border-radius:999px; border:1px solid rgba(255,255,255,.08);
+  background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03)); color:var(--text);
+  display:inline-flex; align-items:center; gap:10px; cursor:pointer; font-weight:700; letter-spacing:.3px;
+  box-shadow: var(--shadow); transform: translateY(0); transition:.25s ease; user-select:none;
+}
+.btn:hover{ transform: translateY(-2px); filter: brightness(1.08)}
+.btn.primary{ background: linear-gradient(180deg, #ff73b0, #ff4f97); border:none; color:#fff }
+.btn.ghost{ background: transparent; border-color: rgba(255,255,255,.18)}
+
+/* ====== Background effects ====== */
+.hearts{ position:fixed; inset:0; pointer-events:none; overflow:hidden; z-index:-1 }
+.heart{ position:absolute; bottom:-40px; opacity:.7; filter: drop-shadow(0 10px 20px rgba(255,95,162,.25));
+        animation: floatUp linear forwards; }
+@keyframes floatUp{ to { transform: translateY(-110vh) rotate(25deg); opacity:0 } }
+
+.balloons{ position:fixed; inset:0; pointer-events:none; z-index:0; overflow:hidden }
+.balloon{ position:absolute; bottom:-80px; width:26px; height:36px; border-radius:50% 50% 50% 50% / 60% 60% 40% 40%;
+          background:var(--balloon1); box-shadow: inset 0 8px 18px rgba(255,255,255,.25);
+          animation: rise linear forwards; }
+.balloon:after{ content:""; position:absolute; bottom:-16px; left:50%; width:2px; height:36px; background:rgba(255,255,255,.5) }
+@keyframes rise{ to { transform: translateY(-120vh) translateX(20px) rotate(6deg); opacity:.9 } }
+
+/* ====== Cards / Sections ====== */
+.section{ padding:70px 20px }
+.container {
+  max-width: 1500px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.grid{ display:grid; gap:18px; grid-template-columns: repeat( auto-fit, minmax(260px, 1fr) ); }
+.card{
+  background: #1e1e1e;  /* abu-abu gelap */
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: var(--radius); 
+  padding:22px; 
+  box-shadow: var(--shadow);
+}
+
+.card h3{ margin:6px 0 12px; font-size:22px }
+.muted{ color:var(--muted) }
+
+.list-inline{ display:flex; gap:10px; flex-wrap:wrap }
+
+.input-row{ display:flex; gap:8px; margin-top:10px }
+.input-row input{ flex:1; padding:10px 12px; border-radius:10px; border:1px solid rgba(255,255,255,.18); background:rgba(0,0,0,.2); color:var(--text) }
+
+/* ====== Gallery ====== */
+.gallery{ position:relative; border-radius:var(--radius); overflow:hidden; }
+.gallery .viewport{ position:relative; height:320px; background:var(--soft); display:grid; place-items:center }
+.gallery img{ max-width:100%; max-height:550px; object-fit:cover; width: 500px; height:100%; display:block; border-radius: var(--radius); }
+.gallery .controls{ display:flex; justify-content:space-between; gap:10px; position:absolute; inset:auto 0 12px 0; padding:0 12px }
+.gallery button{ background:rgba(0,0,0,.35); border:1px solid rgba(255,255,255,.2); color:#fff; border-radius:999px; padding:10px 14px; cursor:pointer; font-weight:700 }
+
+/* ====== Timeline ====== */
+.timeline{ position:relative; margin:20px 0; padding-left:18px }
+.timeline:before{ content:""; position:absolute; left:8px; top:0; bottom:0; width:2px; background:linear-gradient(180deg, var(--primary), transparent) }
+.moment{ position:relative; margin:16px 0; padding:14px 14px 14px 16px; border-radius:14px; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08) }
+.moment:before{ content:""; position:absolute; left:-6px; top:16px; width:12px; height:12px; border-radius:50%; background:var(--primary); box-shadow:0 0 0 3px rgba(255,95,162,.25) }
+
+/* ====== IG Grid ====== */
+.ig-header {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.ig-avatar {
+  width: 80px; height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #e1306c;
+}
+.ig-info { flex: 1; }
+.ig-username { font-weight: 600; font-size: 18px; }
+.ig-stats { display: flex; gap: 16px; margin: 6px 0; font-size: 14px; }
+.ig-bio { font-size: 14px; color: var(--muted); }
+
+.ig-highlights {
+  display: flex; gap: 12px;
+  margin-bottom: 20px;
+}
+.ig-highlight img {
+  width: 60px; height: 60px;
+  border-radius: 50%;
+  border: 2px solid #ccc;
+  object-fit: cover;
+}
+
+.ig-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
+}
+.ig-grid img {
+  width: 100%;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+}
+
+/* ====== Footer ====== */
+footer{ padding:40px 20px 80px; text-align:center; color:var(--muted) }
+.tiny{font-size:12px; opacity:.8}
+
+/* ====== Fireworks Canvas ====== */
+canvas#fx{ position:fixed; inset:0; pointer-events:none; z-index:5 }
+
+/* ====== Reveal / Censor behavior ====== */
+.reveal .content { transition: filter .45s cubic-bezier(.2,.9,.2,1), opacity .3s; }
+.content.censored{
+  filter: blur(8px) saturate(.9);
+  opacity:.95;
+  position:relative;
+  user-select:none;
+}
+.content.censored::after{
+  content: "Ketuk 'Buka Kejutan' untuk melihat isinya";
+  display:block;
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  color:var(--muted);
+  font-weight:700;
+  font-size:13px;
+  padding:6px 10px;
+  background:rgba(0,0,0,.25);
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.04);
+  pointer-events:none;
+}
+
+.message-box {
+  padding: 20px;
+  background: #1e1e1e;  /* abu-abu gelap */
+  border-radius: 15px;
+  box-shadow: 0 0 20px rgba(255, 105, 180, 0.2);
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4); /* biar agak timbul */
+}
+
+.message-box h3 {
+  margin-bottom: 15px;
+  color: #ff69b4;
+  font-size: 1.3em;
+}
+
+.message-box textarea {
+  width: 100%;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  margin-bottom: 10px;
+  resize: none;
+  font-size: 1em;
+}
+
+.message-box button {
+  padding: 10px 15px;
+  background: #ff69b4;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.message-box button:hover {
+  background: #ff85c1;
+}
+
+.message-content {
+  margin-top: 15px;
+  font-size: 1.1em;
+  line-height: 1.6;
+  color: #ddd;
+  background: rgba(255, 255, 255, 0.07);
+  padding: 15px;
+  border-radius: 10px;
+  border-left: 4px solid #ff69b4;
+}
+
+/* Responsive bits */
+.hide-sm{ display:inline-block }
+@media (max-width:520px){ .hide-sm{ display:none } }
+
+.modal {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: #ff73b0;
+  padding: 20px;
+  border-radius: 12px;
+  text-align: center;
+  min-width: 280px;
+}
+
+.hidden {
+  display: none;
+}
+
+.modal button {
+  margin: 8px;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+#reviseBtn {
+  background: #ccc;
+}
+
+#sendBtn {
+  background: #4caf50;
+  color: white;
+}
+
+#closeThanks {
+  background: #2196f3;
+  color: white;
+}
+
+/* Layer background */
+/*.bg-slideshow {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none; /* biar gak nutup tombol
+}*/
+
+/*.bg-slideshow img {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 2s ease-in-out;
+  filter: blur(8px) brightness(0.6); /* blur + gelapin dikit 
+  overflow: hidden;
+  pointer-events: none; /* biar gak nutup tombol 
+}*/
+
+/*.bg-slideshow img.active {
+  opacity: 1;
+}*/
+
+/* Modal background khusus video */
+.video-modal {
+  display: none; 
+  position: fixed;
+  z-index: 1000;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(0,0,0,0.8);
+  justify-content: center;
+  align-items: center;
+}
+
+/* Box video */
+.video-modal-content {
+  background: #111;
+  padding: 20px;
+  border-radius: 12px;
+  max-width: 600px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 0 20px rgba(255,255,255,0.3);
+}
+
+.video-modal video {
+  width: 100%;
+  border-radius: 12px;
+}
+
+/* Tombol close video */
+.video-close {
+  position: absolute;
+  top: 10px; 
+  right: 20px;
+  font-size: 28px;
+  color: #fff;
+  cursor: pointer;
+}
+
+/* Background grid container */
+.bg-grid {
+position: fixed;
+top: 0;
+left: 0;
+width: 200%; /* Lebar dua kali lipat untuk duplikasi */
+height: 100%;
+display: grid;
+grid-template-columns: repeat(20, 200px); /* Kolom yang banyak untuk horizontal scroll */
+grid-auto-rows: 300px; /* tinggi tiap baris */
+gap: 4px;
+z-index: -1;
+overflow: hidden;
+            
+/* animasi scroll horizontal */
+animation: scrollLeft 30s linear infinite;
+}
+        
+.bg-grid img {
+width: 100%;
+height: 100%;
+object-fit: cover;
+filter: blur(3px) brightness(0.3);
+transition: transform 0.3s ease, filter 0.3s ease;
+}
+        
+/* Efek hover pada gambar */
+.bg-grid img:hover {
+transform: scale(1.05);
+filter: blur(1px) brightness(0.8);
+z-index: 1;
+}
+        
+/* Animasi scroll kiri */
+@keyframes scrollLeft {
+from { transform: translateX(0); }
+to   { transform: translateX(-50%); } 
+/* -50% karena kita gandakan grid */
+}
